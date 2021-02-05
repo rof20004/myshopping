@@ -42,7 +42,7 @@ public class ClientEntity {
 	private String email;
 	
 	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "client_id")
+	@JoinColumn(name = "address_id")
 	private AddressEntity address;
 	
 }
