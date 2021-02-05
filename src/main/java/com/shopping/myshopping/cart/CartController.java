@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shopping.myshopping.cart.dto.CreateCartDto;
+import com.shopping.myshopping.cart.dtos.CreateCartDto;
 import com.shopping.myshopping.cart.entities.CartEntity;
 import com.shopping.myshopping.client.exceptions.ClientNotFoundException;
 

@@ -1,4 +1,4 @@
-package com.shopping.myshopping.cart.dto;
+package com.shopping.myshopping.cart.dtos;
 
 import java.util.List;
 
