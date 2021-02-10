@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shopping.myshopping.cart.dtos.CartDto;
 import com.shopping.myshopping.cart.dtos.CreateCartDto;
-import com.shopping.myshopping.cart.entities.CartEntity;
 import com.shopping.myshopping.client.exceptions.ClientNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -22,12 +22,12 @@ public class CartController {
 	private final CartService cartService;
 	
 	@GetMapping
-	public List<CartEntity> list() {
+	public List<CartDto> list() {
 		return cartService.list();
 	}
 	
 	@PostMapping
-	public CartEntity create(@RequestBody CreateCartDto dto) throws ClientNotFoundException {
+	public CartDto create(@RequestBody CreateCartDto dto) throws ClientNotFoundException {
 		return cartService.create(dto);
 	}
 	

@@ -5,13 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.shopping.myshopping.cart.builders.CartBuilders;
+import com.shopping.myshopping.cart.dtos.CartDto;
 import com.shopping.myshopping.cart.dtos.CreateCartDto;
 import com.shopping.myshopping.cart.entities.CartEntity;
-import com.shopping.myshopping.cart.entities.ItemEntity;
 import com.shopping.myshopping.cart.exceptions.CartNotFoundException;
 import com.shopping.myshopping.client.ClientService;
 import com.shopping.myshopping.client.entities.ClientEntity;
 import com.shopping.myshopping.client.exceptions.ClientNotFoundException;
+import com.shopping.myshopping.item.builders.ItemBuilders;
+import com.shopping.myshopping.item.entities.ItemEntity;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,28 +23,34 @@ public class CartService {
 
 	private final CartRepository cartRepository;
 	private final ClientService clientService;
-	
-	public List<CartEntity> list() {
-		return cartRepository.findAll();
+
+	public List<CartDto> list() {
+		List<CartEntity> carts = cartRepository.findAll();
+
+		List<CartDto> dtos = CartBuilders.buildDtoListFromEntityList(carts);
+
+		return dtos;
 	}
-	
-	public CartEntity create(CreateCartDto dto) throws ClientNotFoundException {
-		ClientEntity client = clientService.findById(dto.getClientId());
-		
-		CartEntity cart = CartBuilders.createCartDtoToEntity(dto, client);
-		
-		List<ItemEntity> items = CartBuilders.createCartDtoBuildItemsEntity(dto, cart);
+
+	public CartDto create(CreateCartDto dto) throws ClientNotFoundException {
+		ClientEntity client = clientService.findById(dto.getClient());
+
+		CartEntity cart = CartBuilders.buildEntityFromCreateCartDto(dto, client);
+
+		List<ItemEntity> items = ItemBuilders.buildEntityListFromCreateCartDto(dto, cart);
 		cart.setItems(items);
-		
-		double total = CartBuilders.createCartDtoCalculateTotal(items);
+
+		double total = items.stream().filter(item -> item.getQuantity() > 0)
+				.mapToDouble(item -> item.getPrice() * item.getQuantity()).sum();
 		cart.setTotal(total);
-		
-		return cartRepository.save(cart);
+
+		cartRepository.save(cart);
+
+		return CartBuilders.buildDtoFromEntity(cart);
 	}
-	
+
 	public CartEntity findById(Long id) throws CartNotFoundException {
-		return cartRepository.findById(id).orElseThrow(
-				() -> new CartNotFoundException("Carrinho não encontrado"));
+		return cartRepository.findById(id).orElseThrow(() -> new CartNotFoundException("Carrinho não encontrado"));
 	}
-	
+
 }

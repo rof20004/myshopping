@@ -28,6 +28,6 @@ public class ProductEntity {
 	private String description;
 	
 	@Column(name = "price")
-	private double price;
+	private Double price;
 	
 }

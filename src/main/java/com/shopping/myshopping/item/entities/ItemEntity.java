@@ -1,4 +1,4 @@
-package com.shopping.myshopping.cart.entities;
+package com.shopping.myshopping.item.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.shopping.myshopping.cart.entities.CartEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,10 +34,10 @@ public class ItemEntity {
 	private String product;
 	
 	@Column(name = "price")
-	private double price;
+	private Double price;
 
 	@Column(name = "quantity")
-	private int quantity;
+	private Integer quantity;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cart_id")

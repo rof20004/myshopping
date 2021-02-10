@@ -1,5 +1,9 @@
 package com.shopping.myshopping.cart.dtos;
 
+import java.util.List;
+
+import com.shopping.myshopping.item.dtos.ItemDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateItemDto {
+public class CartDto {
 
-	private long productId;
-	private int quantity;
+	private Long id;
+	private String client;
+	private Double total;
+	private List<ItemDto> items;
 	
 }

@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.shopping.myshopping.client.builders.ClientBuilders;
+import com.shopping.myshopping.client.dtos.ClientDto;
+import com.shopping.myshopping.client.dtos.CreateClientDto;
 import com.shopping.myshopping.client.entities.ClientEntity;
 import com.shopping.myshopping.client.exceptions.ClientNotFoundException;
 
@@ -19,8 +22,12 @@ public class ClientService {
 		return clientRepository.findAll();
 	}
 
-	public ClientEntity create(ClientEntity client) {
-		return clientRepository.save(client);
+	public ClientDto create(CreateClientDto dto) {
+		ClientEntity client = ClientBuilders.buildEntityFromCreateClientDto(dto);
+		
+		clientRepository.save(client);
+		
+		return ClientBuilders.buildDtoFromEntity(client);
 	}
 
 	public ClientEntity findById(Long id) throws ClientNotFoundException {

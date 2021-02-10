@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import com.shopping.myshopping.cart.enums.CartStatus;
 import com.shopping.myshopping.client.entities.ClientEntity;
+import com.shopping.myshopping.item.entities.ItemEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,7 +38,7 @@ public class CartEntity {
 	private Long id;
 	
 	@Column(name = "total")
-	private double total;
+	private Double total;
 	
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;

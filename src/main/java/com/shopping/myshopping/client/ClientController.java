@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shopping.myshopping.client.dtos.ClientDto;
+import com.shopping.myshopping.client.dtos.CreateClientDto;
 import com.shopping.myshopping.client.entities.ClientEntity;
 
 import lombok.RequiredArgsConstructor;
@@ -25,8 +27,8 @@ public class ClientController {
 	}
 	
 	@PostMapping
-	public ClientEntity create(@RequestBody ClientEntity client) {
-		return clientService.create(client);
+	public ClientDto create(@RequestBody CreateClientDto dto) {
+		return clientService.create(dto);
 	}
 	
 }
