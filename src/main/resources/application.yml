@@ -8,3 +8,7 @@ spring:
   jpa:
     hibernate:
       dll-auto: update
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
