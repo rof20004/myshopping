@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shopping.myshopping.cart.dtos.CartDto;
 import com.shopping.myshopping.cart.dtos.CreateCartDto;
 import com.shopping.myshopping.client.exceptions.ClientNotFoundException;
+import com.shopping.myshopping.product.exceptions.ProductNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +28,7 @@ public class CartController {
 	}
 	
 	@PostMapping
-	public CartDto create(@RequestBody CreateCartDto dto) throws ClientNotFoundException {
+	public CartDto create(@RequestBody CreateCartDto dto) throws ClientNotFoundException, ProductNotFoundException {
 		return cartService.create(dto);
 	}
 	

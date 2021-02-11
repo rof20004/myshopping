@@ -11,13 +11,24 @@ import com.shopping.myshopping.client.entities.ClientEntity;
 public class ClientBuilders {
 
 	public static ClientEntity buildEntityFromCreateClientDto(CreateClientDto dto) {
-		return ClientEntity.builder().name(dto.getName()).cpf(dto.getCpf()).phone(dto.getPhone()).email(dto.getEmail())
-				.address(AddressBuilders.buildEntityFromCreateAddressDto(dto.getAddress())).build();
+		return ClientEntity.builder()
+				.name(dto.getName())
+				.cpf(dto.getCpf())
+				.phone(dto.getPhone())
+				.email(dto.getEmail())
+				.address(AddressBuilders.buildEntityFromCreateAddressDto(dto.getAddress()))
+				.build();
 	}
 
 	public static ClientDto buildDtoFromEntity(ClientEntity client) {
-		return ClientDto.builder().name(client.getName()).cpf(client.getCpf()).phone(client.getPhone())
-				.email(client.getEmail()).address(AddressBuilders.buildDtoFromEntity(client.getAddress())).build();
+		return ClientDto.builder()
+				.id(client.getId())
+				.name(client.getName())
+				.cpf(client.getCpf())
+				.phone(client.getPhone())
+				.email(client.getEmail())
+				.address(AddressBuilders.buildDtoFromEntity(client.getAddress()))
+				.build();
 	}
 
 }

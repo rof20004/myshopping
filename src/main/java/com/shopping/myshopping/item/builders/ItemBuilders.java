@@ -12,6 +12,7 @@ import com.shopping.myshopping.item.dtos.ItemDto;
 import com.shopping.myshopping.item.entities.ItemEntity;
 import com.shopping.myshopping.product.ProductService;
 import com.shopping.myshopping.product.entities.ProductEntity;
+import com.shopping.myshopping.product.exceptions.ProductNotFoundException;
 
 @Component
 public class ItemBuilders {
@@ -23,21 +24,26 @@ public class ItemBuilders {
 		ItemBuilders.productService = productService;
 	}
 
-	public static List<ItemEntity> buildEntityListFromCreateCartDto(CreateCartDto dto, CartEntity cart) {
+	public static List<ItemEntity> buildEntityListFromCreateCartDto(CreateCartDto dto, CartEntity cart) throws ProductNotFoundException {
 		return dto.getProducts().stream().map(item -> {
-			try {
 				ProductEntity product = productService.findById(item.getProduct());
-				return ItemEntity.builder().cart(cart).product(product.getDescription()).price(product.getPrice())
-						.quantity(item.getQuantity()).build();
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
+				return ItemEntity.builder()
+						.cart(cart)
+						.product(product.getDescription())
+						.price(product.getPrice())
+						.quantity(item.getQuantity())
+						.build();
 		}).collect(Collectors.toList());
 	}
 
 	public static List<ItemDto> buildDtoListFromEntityList(List<ItemEntity> items) {
-		return items.stream().map(item -> ItemDto.builder().id(item.getId()).product(item.getProduct())
-				.price(item.getPrice()).quantity(item.getQuantity()).build()).collect(Collectors.toList());
+		return items.stream().map(item -> ItemDto.builder()
+				.id(item.getId())
+				.product(item.getProduct())
+				.price(item.getPrice())
+				.quantity(item.getQuantity())
+				.build()
+		).collect(Collectors.toList());
 	}
 
 }

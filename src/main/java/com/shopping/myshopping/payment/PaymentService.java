@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.shopping.myshopping.cart.CartService;
 import com.shopping.myshopping.cart.entities.CartEntity;
 import com.shopping.myshopping.cart.enums.CartStatus;
-import com.shopping.myshopping.cart.exceptions.CartNotFoundException;
 import com.shopping.myshopping.payment.entities.PaymentEntity;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class PaymentService {
 		return paymentRepository.findAll();
 	}
 	
-	public PaymentEntity create(PaymentEntity payment) throws CartNotFoundException {
+	public PaymentEntity create(PaymentEntity payment) {
 		CartEntity cart = cartService.findById(payment.getCart().getId());
 		cart.setStatus(CartStatus.COMPLETED);
 

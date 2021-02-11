@@ -30,9 +30,8 @@ public class ClientService {
 		return ClientBuilders.buildDtoFromEntity(client);
 	}
 
-	public ClientEntity findById(Long id) throws ClientNotFoundException {
-		return clientRepository.findById(id).orElseThrow(
-				() -> new ClientNotFoundException("Cliente não encontrado, favor realizar cadastro antes"));
+	public ClientEntity findById(Long id) {
+		return clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client not found, please register into application before buy"));
 	}
 
 }

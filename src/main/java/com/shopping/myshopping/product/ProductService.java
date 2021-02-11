@@ -23,9 +23,8 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 	
-	public ProductEntity findById(Long id) throws ProductNotFoundException {
-		return productRepository.findById(id).orElseThrow(
-				() -> new ProductNotFoundException(String.format("Produto #%d não encontrado", id)));
+	public ProductEntity findById(Long id) {
+		return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(String.format("Product #%d not found", id)));
 	}
 	
 }

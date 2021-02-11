@@ -11,7 +11,6 @@ import com.shopping.myshopping.cart.entities.CartEntity;
 import com.shopping.myshopping.cart.exceptions.CartNotFoundException;
 import com.shopping.myshopping.client.ClientService;
 import com.shopping.myshopping.client.entities.ClientEntity;
-import com.shopping.myshopping.client.exceptions.ClientNotFoundException;
 import com.shopping.myshopping.item.builders.ItemBuilders;
 import com.shopping.myshopping.item.entities.ItemEntity;
 
@@ -32,7 +31,7 @@ public class CartService {
 		return dtos;
 	}
 
-	public CartDto create(CreateCartDto dto) throws ClientNotFoundException {
+	public CartDto create(CreateCartDto dto) {
 		ClientEntity client = clientService.findById(dto.getClient());
 
 		CartEntity cart = CartBuilders.buildEntityFromCreateCartDto(dto, client);
@@ -40,8 +39,8 @@ public class CartService {
 		List<ItemEntity> items = ItemBuilders.buildEntityListFromCreateCartDto(dto, cart);
 		cart.setItems(items);
 
-		double total = items.stream().filter(item -> item.getQuantity() > 0)
-				.mapToDouble(item -> item.getPrice() * item.getQuantity()).sum();
+		// TODO: create business logic to handle product quantity
+		double total = items.stream().filter(item -> item.getQuantity() > 0).mapToDouble(item -> item.getPrice() * item.getQuantity()).sum();
 		cart.setTotal(total);
 
 		cartRepository.save(cart);
@@ -50,7 +49,7 @@ public class CartService {
 	}
 
 	public CartEntity findById(Long id) throws CartNotFoundException {
-		return cartRepository.findById(id).orElseThrow(() -> new CartNotFoundException("Carrinho não encontrado"));
+		return cartRepository.findById(id).orElseThrow(() -> new CartNotFoundException("Cart not found"));
 	}
 
 }
