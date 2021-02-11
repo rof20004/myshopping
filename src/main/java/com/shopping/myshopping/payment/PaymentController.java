@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shopping.myshopping.cart.exceptions.CartNotFoundException;
 import com.shopping.myshopping.payment.entities.PaymentEntity;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class PaymentController {
 	}
 	
 	@PostMapping
-	public PaymentEntity create(@RequestBody PaymentEntity payment) throws CartNotFoundException {
+	public PaymentEntity create(@RequestBody PaymentEntity payment) {
 		return paymentService.create(payment);
 	}
 	

@@ -48,7 +48,7 @@ public class CartService {
 		return CartBuilders.buildDtoFromEntity(cart);
 	}
 
-	public CartEntity findById(Long id) throws CartNotFoundException {
+	public CartEntity findById(Long id) {
 		return cartRepository.findById(id).orElseThrow(() -> new CartNotFoundException("Cart not found"));
 	}
 
