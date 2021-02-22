@@ -25,25 +25,27 @@ public class ItemBuilders {
 	}
 
 	public static List<ItemEntity> buildEntityListFromCreateCartDto(CreateCartDto dto, CartEntity cart) throws ProductNotFoundException {
-		return dto.getProducts().stream().map(item -> {
-				ProductEntity product = productService.findById(item.getProduct());
-				return ItemEntity.builder()
-						.cart(cart)
-						.product(product.getDescription())
-						.price(product.getPrice())
-						.quantity(item.getQuantity())
-						.build();
-		}).collect(Collectors.toList());
+		return dto.getProducts().stream()
+				.map(item -> {
+					ProductEntity product = productService.findById(item.getProduct());
+					return ItemEntity.builder()
+							.cart(cart)
+							.product(product.getDescription())
+							.price(product.getPrice())
+							.quantity(item.getQuantity())
+							.build();
+				}).collect(Collectors.toList());
 	}
 
 	public static List<ItemDto> buildDtoListFromEntityList(List<ItemEntity> items) {
-		return items.stream().map(item -> ItemDto.builder()
-				.id(item.getId())
-				.product(item.getProduct())
-				.price(item.getPrice())
-				.quantity(item.getQuantity())
-				.build()
-		).collect(Collectors.toList());
+		return items.stream()
+				.map(item -> ItemDto.builder()
+						.id(item.getId())
+						.product(item.getProduct())
+						.price(item.getPrice())
+						.quantity(item.getQuantity())
+						.build()
+				).collect(Collectors.toList());
 	}
 
 }

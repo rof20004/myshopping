@@ -12,27 +12,27 @@ import com.shopping.myshopping.cart.entities.CartEntity;
 import com.shopping.myshopping.cart.enums.CartStatus;
 import com.shopping.myshopping.client.entities.ClientEntity;
 import com.shopping.myshopping.item.builders.ItemBuilders;
-import com.shopping.myshopping.item.dtos.ItemDto;
 
 @Component
 public class CartBuilders {
 
 	public static CartEntity buildEntityFromCreateCartDto(CreateCartDto dto, ClientEntity client) {
-		CartEntity entity = CartEntity.builder().client(client).createdAt(LocalDateTime.now())
-				.status(CartStatus.PENDING).build();
-		return entity;
+		return CartEntity.builder()
+				.client(client)
+				.createdAt(LocalDateTime.now())
+				.status(CartStatus.PENDING)
+				.build();
 	}
 
 	public static List<CartDto> buildDtoListFromEntityList(List<CartEntity> carts) {
 		return carts.stream()
-				.map(cart -> CartDto.builder().id(cart.getId()).client(cart.getClient().getName())
-						.total(cart.getTotal())
-						.items(cart.getItems().stream()
-								.map(item -> ItemDto.builder().id(item.getId()).product(item.getProduct())
-										.price(item.getPrice()).quantity(item.getQuantity()).build())
-								.collect(Collectors.toList()))
-						.build())
-				.collect(Collectors.toList());
+				.map(cart -> CartDto.builder()
+								.id(cart.getId())
+								.client(cart.getClient().getName())
+								.total(cart.getTotal())
+								.items(ItemBuilders.buildDtoListFromEntityList(cart.getItems()))
+								.build()
+				).collect(Collectors.toList());
 	}
 	
 	public static CartDto buildDtoFromEntity(CartEntity cart) {
