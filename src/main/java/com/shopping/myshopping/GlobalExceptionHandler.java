@@ -20,11 +20,10 @@ import lombok.NoArgsConstructor;
 public class GlobalExceptionHandler {
 	
 	private ApplicationError buildApplicationError(RuntimeException e) {
-		ApplicationError error = ApplicationError.builder()
+		return ApplicationError.builder()
 				.timestamp(LocalDateTime.now())
 				.message(e.getMessage())
 				.build();
-		return error;
 	}
 
 	@ExceptionHandler(value = ClientNotFoundException.class)

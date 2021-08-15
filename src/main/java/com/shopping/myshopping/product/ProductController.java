@@ -1,16 +1,11 @@
 package com.shopping.myshopping.product;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.shopping.myshopping.product.dto.ProductDto;
 import com.shopping.myshopping.product.entities.ProductEntity;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -25,8 +20,8 @@ public class ProductController {
 	}
 	
 	@PostMapping
-	public ProductEntity create(@RequestBody ProductEntity product) {
-		return productService.create(product);
+	public ProductEntity create(@RequestBody ProductDto dto) {
+		return productService.create(dto);
 	}
 	
 }

@@ -8,6 +8,8 @@ import com.shopping.myshopping.address.entities.AddressEntity;
 
 @Component
 public class AddressBuilders {
+	
+	private AddressBuilders() {}
 
 	public static AddressEntity buildEntityFromCreateAddressDto(CreateAddressDto dto) {
 		return AddressEntity.builder().street(dto.getStreet()).number(dto.getNumber()).build();

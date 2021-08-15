@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import com.shopping.myshopping.cart.dtos.CartDto;
-import com.shopping.myshopping.cart.dtos.CreateCartDto;
 import com.shopping.myshopping.cart.entities.CartEntity;
 import com.shopping.myshopping.cart.enums.CartStatus;
 import com.shopping.myshopping.client.entities.ClientEntity;
@@ -15,8 +14,10 @@ import com.shopping.myshopping.item.builders.ItemBuilders;
 
 @Component
 public class CartBuilders {
+	
+	private CartBuilders() {}
 
-	public static CartEntity buildEntityFromCreateCartDto(CreateCartDto dto, ClientEntity client) {
+	public static CartEntity buildEntityFromCreateCartDto(ClientEntity client) {
 		return CartEntity.builder()
 				.client(client)
 				.createdAt(LocalDateTime.now())

@@ -20,7 +20,7 @@ public class ItemBuilders {
 	private static ProductService productService;
 
 	@Autowired
-	public ItemBuilders(ProductService productService) {
+	private ItemBuilders(ProductService productService) {
 		ItemBuilders.productService = productService;
 	}
 

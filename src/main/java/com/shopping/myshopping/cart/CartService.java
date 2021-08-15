@@ -25,16 +25,14 @@ public class CartService {
 
 	public List<CartDto> list() {
 		List<CartEntity> carts = cartRepository.findAll();
-
-		List<CartDto> dtos = CartBuilders.buildDtoListFromEntityList(carts);
-
-		return dtos;
+		
+		return CartBuilders.buildDtoListFromEntityList(carts);
 	}
 
 	public CartDto create(CreateCartDto dto) {
 		ClientEntity client = clientService.findById(dto.getClient());
 
-		CartEntity cart = CartBuilders.buildEntityFromCreateCartDto(dto, client);
+		CartEntity cart = CartBuilders.buildEntityFromCreateCartDto(client);
 
 		List<ItemEntity> items = ItemBuilders.buildEntityListFromCreateCartDto(dto, cart);
 		cart.setItems(items);

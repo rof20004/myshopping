@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.shopping.myshopping.product.dto.ProductDto;
 import com.shopping.myshopping.product.entities.ProductEntity;
 import com.shopping.myshopping.product.exceptions.ProductNotFoundException;
 
@@ -19,8 +20,13 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 	
-	public ProductEntity create(ProductEntity product) {
-		return productRepository.save(product);
+	public ProductEntity create(ProductDto dto) {
+		ProductEntity entity = ProductEntity.builder()
+			.description(dto.getDescription())
+			.price(dto.getPrice())
+			.build();
+		
+		return productRepository.save(entity);
 	}
 	
 	public ProductEntity findById(Long id) {

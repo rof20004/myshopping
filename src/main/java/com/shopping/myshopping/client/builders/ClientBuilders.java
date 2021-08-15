@@ -10,6 +10,8 @@ import com.shopping.myshopping.client.entities.ClientEntity;
 @Component
 public class ClientBuilders {
 
+	private ClientBuilders() {}
+	
 	public static ClientEntity buildEntityFromCreateClientDto(CreateClientDto dto) {
 		return ClientEntity.builder()
 				.name(dto.getName())

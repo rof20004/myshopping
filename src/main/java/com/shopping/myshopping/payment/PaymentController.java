@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shopping.myshopping.payment.dto.PaymentDto;
 import com.shopping.myshopping.payment.entities.PaymentEntity;
 
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class PaymentController {
 	}
 	
 	@PostMapping
-	public PaymentEntity create(@RequestBody PaymentEntity payment) {
-		return paymentService.create(payment);
+	public PaymentEntity create(@RequestBody PaymentDto dto) {
+		return paymentService.create(dto);
 	}
 	
 }
